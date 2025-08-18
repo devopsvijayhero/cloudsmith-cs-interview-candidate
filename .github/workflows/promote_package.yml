@@ -5,11 +5,10 @@ on:
     types: [package_synchronized]
 
 env:
-  CLOUDSMITH_NAMESPACE: 'interview-vijay-yadav'   
+  CLOUDSMITH_NAMESPACE: 'interview-vijay-yadav'
   CLOUDSMITH_SERVICE_SLUG: 'interview'
   CLOUDSMITH_STAGING_REPO: 'staging'
   CLOUDSMITH_PRODUCTION_REPO: 'prod'
-
 
 permissions:
   id-token: write
@@ -39,16 +38,10 @@ jobs:
 
           echo "Promoting package: $PACKAGE_NAME:$VERSION ($IDENTIFIER)"
           echo "identifier=$IDENTIFIER" >> $GITHUB_OUTPUT
-          echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Tag package as ready-for-production
         run: |
           IDENTIFIER="${{ steps.payload.outputs.identifier }}"
-          PACKAGE_NAME="${{ steps.payload.outputs.package_name }}"
-          VERSION="${{ steps.payload.outputs.version }}"
-
-          echo "🏷️ Tagging package [$PACKAGE_NAME:$VERSION] with 'ready-for-production'."
           cloudsmith tags add \
             ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }}/$IDENTIFIER \
             ready-for-production
@@ -56,7 +49,6 @@ jobs:
       - name: Promote package to production
         run: |
           IDENTIFIER="${{ steps.payload.outputs.identifier }}"
-          echo "🚀 Promoting package $IDENTIFIER to production..."
           cloudsmith mv --yes \
             ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }}/$IDENTIFIER \
             ${{ env.CLOUDSMITH_PRODUCTION_REPO }}
