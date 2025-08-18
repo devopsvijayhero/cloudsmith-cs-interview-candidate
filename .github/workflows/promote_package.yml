@@ -6,7 +6,7 @@ on:
 
 env:
   CLOUDSMITH_NAMESPACE: 'interview-vijay-yadav'
-  CLOUDSMITH_SERVICE_SLUG: 'interview'
+  CLOUDSMITH_SERVICE_SLUG: 'interview-cloud-smith'
   CLOUDSMITH_STAGING_REPO: 'staging'
   CLOUDSMITH_PRODUCTION_REPO: 'prod'
 
