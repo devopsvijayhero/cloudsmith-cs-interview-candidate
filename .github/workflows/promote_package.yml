@@ -32,7 +32,7 @@ jobs:
           VERSION="${{ github.event.client_payload.version }}"
 
           if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
-            echo "❌ No valid identifier received from dispatch payload."
+            echo "No valid identifier received from dispatch payload."
             exit 1
           fi
 
